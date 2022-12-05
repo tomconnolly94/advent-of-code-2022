@@ -4,13 +4,13 @@
 
 using namespace std;
 
-vector<string>* readFileToList()
+vector<string>* readFileToList(string filename="input.txt")
 {
     vector<string>* entries = new vector<string>{};
 
     string line;
     ifstream myfile;
-    myfile.open("input.txt");
+    myfile.open(filename);
 
     if(!myfile.is_open()) {
         perror("Error open");
