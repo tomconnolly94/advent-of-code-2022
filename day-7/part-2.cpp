@@ -86,13 +86,10 @@ int main()
     {
         if(directory->size > space_required && directory->size < smallest_directory_size)
             smallest_directory_size = directory->size;
+        delete directory;
     }
 
-    cout << "total_drive_space: " << total_drive_space << endl;
-    cout << "space_required: " << space_required << endl;
-    cout << "root dir size: " << root_directory->size << endl;
     cout << "smallest deletable directory size: " << smallest_directory_size << endl;
-
 
     delete inputLines;
 }
