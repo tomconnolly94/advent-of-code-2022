@@ -6,7 +6,7 @@ using namespace std;
 
 vector<string>* readFileToList(string filename="input.txt")
 {
-    vector<string>* entries = new vector<string>{};
+    vector<string>* entries = new vector<string>();
 
     string line;
     ifstream myfile;
