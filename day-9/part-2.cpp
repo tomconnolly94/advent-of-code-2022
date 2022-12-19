@@ -35,7 +35,7 @@ void applyMovement(
     Position (&positions)[10])
 {
 
-    cout << "new movement applied: " << direction << movementMagnitude << endl;
+    cout << endl << endl << "new movement applied: " << direction << movementMagnitude << endl;
     
     for(int movementIndex = 0; movementIndex < movementMagnitude; ++movementIndex)
     {
@@ -50,50 +50,43 @@ void applyMovement(
 
             cout << "Current lead pos, index: " << ropePositionIndex - 1 << " (x: " << leadPosition.x << ", y: " << leadPosition.y << ") " << endl;
 
-            // head and tail are close enough that no repositioning is necessary
+            // lead and follow are close enough that no repositioning is necessary
             if(abs(leadPosition.x - followPosition.x) > 1 || abs(leadPosition.y - followPosition.y) > 1)
             {
             
                 if(leadPosition.x == followPosition.x) // positions are stacked vertically
+                {
                     followPosition.y += positionModifier.y;
-
+                    //positionModifier = { 0, positionModifier.y };
+                }
                 else if(leadPosition.y == followPosition.y) // positions are lined up horizontally
+                {
                     followPosition.x += positionModifier.x;
+                    //positionModifier = { positionModifier.x, 0 };
+                }
                 else
                 {
-                    // diagonal
-                    if(positionModifier.x == 0)
-                    {
-                        positionModifier.x = leadPosition.x - followPosition.x;
-                        followPosition.x = leadPosition.x;
-                    }
-                    else
-                        followPosition.x += positionModifier.x;
-                    
-                    if(positionModifier.y == 0)
-                    {
-                        positionModifier.y = leadPosition.y - followPosition.y;
-                        followPosition.y = leadPosition.y;
-                    }
-                    else
-                        followPosition.y += positionModifier.y;
+                    int xDiff = leadPosition.x - followPosition.x;
+                    int yDiff = leadPosition.y - followPosition.y;
+
+                    followPosition.x += abs(xDiff) == 2 ? xDiff / 2 : xDiff;
+                    followPosition.y += abs(yDiff) == 2 ? yDiff / 2 : yDiff;
                 }
             }
 
             cout << "Current follow pos (x: " << followPosition.x << ", y: " << followPosition.y << endl << endl;
 
-            if(ropePositionIndex == 9)
-                tailVisitedPositionSet.insert(followPosition.posToString());
 
             positions[ropePositionIndex] = followPosition;
         }
     }
+    tailVisitedPositionSet.insert(positions[9].posToString());
 }
 
 
 int main()
 {
-    vector<string>* inputLines = readFileToList();
+    vector<string>* inputLines = readFileToList("input2.txt");
     Position positions[10] = { 
         Position{0,0},
         Position{0,0},
