@@ -11,9 +11,18 @@ int cycleCount = 0;
 int registerTotal = 0;
 int registerValue = 1;
 int interestingCycleCounts[] = { 20, 60, 100, 140, 180, 220 };
+string crtOutput = "";
 
 void checkAndIncreaseCycleCount(int registerValueIncrease = 0)
-{   
+{
+    int adjustedCycleCount = cycleCount % 40;
+    if(adjustedCycleCount == 0 && cycleCount != 0)
+        crtOutput += "\n";
+
+    crtOutput += adjustedCycleCount >= registerValue - 1 && adjustedCycleCount <= registerValue + 1 ? "#" : ".";
+
+    cout << endl << crtOutput << endl;
+    
     ++cycleCount;
 
     cout << "cycleCount bumped to: " << cycleCount << endl;
